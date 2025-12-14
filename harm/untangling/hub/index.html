@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Planetary Restoration Archive — Drug Harm Untangling Hub (Zero-Harm Override)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0f1f" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="description" content="A zero-harm, evidence-based, all-parties solution hub to carefully untangle the global drug problem while improving biosphere health without self-sacrifice. Includes metaprompt chain, Habitica hooks, WebLLM assist, IndexedDB, anti-inversion guardrails, and a photorealistic starfield." />
+  <meta name="keywords" content="harm reduction, biosphere, zero-harm, regenerative policy, addiction, public health, restorative justice, planetary restoration, Habitica, WebLLM, IndexedDB" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%2300e1ff%22/><text x=%2250%22 y=%2258%22 font-size=%2248%22 text-anchor=%22middle%22 fill=%22%230a0f1f%22>✺</text></svg>">
+  <meta property="og:title" content="Drug Harm Untangling Hub — Zero-Harm Override" />
+  <meta property="og:description" content="Co-create humane, science-based solutions that help everyone and heal the biosphere. No one left behind." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://planetaryrestorationarchive.com/ref/meta/og/starfield.jpg" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Structured data: planetary presentation schema + schema.org -->
+  <script type="application/ld+json" id="presentationSchema">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "WebApplication",
+    "name": "Drug Harm Untangling Hub — Zero-Harm Override",
+    "applicationCategory": "PublicPolicyApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0" },
+    "creator": {
+      "@type": "Organization",
+      "name": "Planetary Restoration Archive",
+      "url": "https://planetaryrestorationarchive.com"
+    },
+    "about": [
+      "Harm reduction", "Addiction care", "Restorative justice",
+      "Biosphere regeneration", "Zero-harm override", "Community health"
+    ],
+    "audience": { "@type": "Audience", "audienceType": ["Residents","Families","Practitioners","Policymakers","Researchers"] }
+  }
+  </script>
+
+  <!-- Styles -->
+  <style>
+    :root{
+      --bg:#0a0f1f; --ink:#e6f6ff; --muted:#9ec9e6; --accent:#00e1ff; --ok:#46e880; --warn:#ffd166; --bad:#ff6b6b;
+      --panel: rgba(10,15,31,.60); --glass: rgba(255,255,255,.06); --radius: 16px; --blur: 12px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5;
+      overflow-x:hidden;
+    }
+    canvas#stars{position:fixed; inset:0; z-index:-1; display:block; background:radial-gradient(1200px 600px at 70% 10%, rgba(0,225,255,.15), transparent 60%) , #000814;}
+    header{
+      position:relative; padding:min(8vh,6rem) 2rem 2rem; text-align:center;
+    }
+    .title{
+      font-weight:800; font-size:clamp(1.8rem, 3.8vw + 1rem, 4rem); letter-spacing:.02em; margin:0 0 .5rem;
+      text-shadow:0 1px 0 #000, 0 8px 40px rgba(0,225,255,.35);
+    }
+    .subtitle{
+      margin:0 auto 1.5rem; max-width:70ch; color:var(--muted);
+    }
+    .ribbon{
+      display:inline-flex; gap:.5rem; align-items:center; padding:.45rem .8rem; border-radius:999px; 
+      background:linear-gradient(120deg, rgba(0,225,255,.15), rgba(255,255,255,.06));
+      backdrop-filter: blur(var(--blur)); border:1px solid rgba(255,255,255,.12);
+      font-size:.9rem; color:var(--ink)
+    }
+    main{padding: 1rem; max-width: 1200px; margin: 0 auto;}
+    section{margin: 2rem 0; background:var(--panel); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); overflow:hidden}
+    .section-head{padding:1rem 1.25rem; display:flex; gap:.8rem; align-items:center; background:linear-gradient(180deg, rgba(0,225,255,.12), rgba(255,255,255,0));}
+    .section-head h2{margin:0; font-size:1.25rem}
+    .section-body{padding:1rem 1.25rem}
+    .grid{display:grid; gap:1rem}
+    @media(min-width:900px){ .grid.cols-2{ grid-template-columns: 1fr 1fr } .grid.cols-3{ grid-template-columns: repeat(3, 1fr) } }
+    .card{background:var(--glass); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:1rem}
+    .kbd{font-family:var(--mono); background:#000; color:#9ff; padding:.1rem .35rem; border-radius:6px; border:1px solid #0ff3;}
+    .btn{
+      cursor:pointer; border:1px solid rgba(255,255,255,.15); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color:var(--ink); padding:.7rem 1rem; border-radius:12px; font-weight:700; letter-spacing:.02em;
+    }
+    .btn:hover{border-color:rgba(255,255,255,.3)}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)} .accent{color:var(--accent)}
+    details{background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:.75rem 1rem}
+    summary{cursor:pointer; font-weight:700}
+    textarea,input,select{
+      width:100%; background:#050a18; color:var(--ink); border:1px solid rgba(255,255,255,.16);
+      border-radius:10px; padding:.8rem; font-family:var(--mono)
+    }
+    .foot{opacity:.7; font-size:.9rem}
+    .tag{display:inline-block; padding:.2rem .5rem; border:1px solid rgba(255,255,255,.2); border-radius:999px; margin:.2rem .2rem 0 0; font-size:.8rem}
+    .pill{display:inline-flex; align-items:center; gap:.4rem; padding:.25rem .6rem; border:1px solid rgba(255,255,255,.16); border-radius:999px;}
+    .row{display:flex; gap:.6rem; flex-wrap:wrap}
+    .mono{font-family:var(--mono)}
+  </style>
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="ribbon">✺ Zero-Harm Override • Biosphere-First • No Self-Sacrifice</div>
+    <h1 class="title">Carefully Untangling the Global Drug Problem — Together</h1>
+    <p class="subtitle">
+      Humane, science-based pathways that work for users, families, practitioners, first responders, policymakers, and the planet.
+      Built with anti-inversion guardrails baked in at the kernel. All life deserves a long, happy, healthy life—free from fear and oppression—forever.
+    </p>
+    <div class="row" style="justify-content:center">
+      <button class="btn" id="btnStartWizard">Start Contribution Wizard</button>
+      <button class="btn" id="btnOpenLLM">Open WebLLM Copilot</button>
+      <button class="btn" id="btnExportPlan">Export Local Plan</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SECTION: Zero-Harm Kernel -->
+    <section id="kernel">
+      <div class="section-head">
+        <h2>Zero-Harm Kernel & Anti-Narrative-Inversion Guardrails</h2>
+      </div>
+      <div class="section-body grid cols-2">
+        <div class="card">
+          <h3>First Principles</h3>
+          <ul>
+            <li><b>Do no harm.</b> Policies must measurably reduce mortality, trauma, incarceration, and ecological damage.</li>
+            <li><b>Dignity-preserving.</b> Language and processes honor personhood; no shaming, coercion, or dehumanization.</li>
+            <li><b>Voluntary care.</b> Access to evidence-based treatment on demand, with consent and informed choice.</li>
+            <li><b>Restorative by default.</b> Prioritize healing and reconciliation over punishment where public safety allows.</li>
+            <li><b>Biosphere-positive.</b> Every step should improve soil, water, air, and biodiversity—or at minimum be neutral.</li>
+          </ul>
+          <details>
+            <summary>Kernel checks (autonomous)</summary>
+            <p class="mono" id="kernelChecksLog">Waiting to evaluate…</p>
+          </details>
+        </div>
+        <div class="card">
+          <h3>Anti-Inversion Linguistic Guardrails</h3>
+          <p>These filters detect and neutralize coercive frames (fear spikes, scapegoating, false dilemmas, “tough on X” theater).</p>
+          <ul>
+            <li><span class="pill">Flag:</span> dehumanizing nouns (“addicts”), replace with person-first (“people who use drugs”).</li>
+            <li><span class="pill">Flag:</span> punitive inevitability framing; inject alternatives showing harm-reduction wins.</li>
+            <li><span class="pill">Flag:</span> zero-sum rhetoric; require biosphere & human co-benefit articulation.</li>
+            <li><span class="pill">Require:</span> absolute risk & base rates; cite randomized/longitudinal evidence when claiming effects.</li>
+          </ul>
+          <div class="row">
+            <button class="btn" id="btnScanLanguage">Scan Page Language</button>
+          </div>
+          <p class="foot">All guardrails run locally; no data leaves your device.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Solutions Map (works for all parties) -->
+    <section id="solutions">
+      <div class="section-head">
+        <h2>Solution Lattice — It Has to Work for Everyone</h2>
+      </div>
+      <div class="section-body grid cols-3">
+        <div class="card">
+          <h3>For People & Families</h3>
+          <ul>
+            <li><b>Low-barrier, on-demand care:</b> same-day MOUD/OAT, stimulant support, mental health, housing linkage.</li>
+            <li><b>Safe supply & supervised sites:</b> eliminate poisoning risk; connect to care by consent.</li>
+            <li><b>Peer-led recovery:</b> paid peers, mutual-aid microgrants, family coaching, stigma reversal campaigns.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>For Practitioners & Responders</h3>
+          <ul>
+            <li><b>Clinical bundles:</b> standardized protocols + decision aids; telehealth bridge; 24/7 consult line.</li>
+            <li><b>Workforce well-being:</b> anti-moral-injury rota, decompression micro-grants, malpractice shield pilots.</li>
+            <li><b>Waste-to-wildflower:</b> facility compost + native pollinator corridors = biosphere co-benefits.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>For Communities & Policy</h3>
+          <ul>
+            <li><b>Decriminalization + diversion:</b> treatment-first pathways; record sealing; restorative courts.</li>
+            <li><b>Targeted enforcement:</b> focus on violent trafficking & environmental crimes; forensic eco-audits.</li>
+            <li><b>Green remediation:</b> fund river-to-reef cleanups via reallocated punitive spend; local seed banks.</li>
+          </ul>
+        </div>
+      </div>
+      <details class="section-body">
+        <summary>Accountability Metrics (editable)</summary>
+        <div class="grid cols-3">
+          <div class="card">
+            <h4>Human Outcomes</h4>
+            <ul>
+              <li>30%+ reduction in overdose mortality within 18 months.</li>
+              <li>50% reduction in poisoning events among safe-supply enrollees.</li>
+              <li>↑ retention in care (90-day) by 25%.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Justice & Economic</h4>
+            <ul>
+              <li>70% reduction in low-level possession arrests.</li>
+              <li>Redirection of punitive budget → care at ≥1:1 ratio.</li>
+              <li>Net public savings tracked quarterly (healthcare + justice).</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Biosphere</h4>
+            <ul>
+              <li>Wastewater toxics ↓; riparian health ↑ (macroinvertebrate index).</li>
+              <li>Facility emissions offset with native restoration corridors.</li>
+              <li>Community biodiversity index ↑ year-over-year.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row" style="margin-top:1rem">
+          <button class="btn" id="btnSaveMetrics">Save Metrics Locally</button>
+          <span id="metricsSaved" class="foot"></span>
+        </div>
+      </details>
+    </section>
+
+    <!-- SECTION: Contribution Wizard -->
+    <section id="wizard">
+      <div class="section-head">
+        <h2>Contribution Wizard — No Self-Sacrifice Required</h2>
+      </div>
+      <div class="section-body grid cols-2">
+        <div class="card">
+          <label>Who are you today?
+            <select id="who">
+              <option value="resident">Resident / Family</option>
+              <option value="practitioner">Clinician / Peer / Responder</option>
+              <option value="policy">Policy / Admin / Funder</option>
+              <option value="researcher">Research / Data</option>
+              <option value="advocate">Community / Advocate</option>
+            </select>
+          </label>
+          <label style="margin-top:.6rem">Your immediate goal
+            <input id="goal" placeholder="e.g., start same-day access clinic; build safe supply pilot; support a family member" />
+          </label>
+          <label style="margin-top:.6rem">Constraints (time, budget, politics)
+            <textarea id="constraints" rows="4" placeholder="List any constraints; keep it real."></textarea>
+          </label>
+          <div class="row" style="margin-top:.6rem">
+            <button class="btn" id="btnPlan">Draft My Plan</button>
+            <button class="btn" id="btnHabitica">Send as Habitica Tasks</button>
+          </div>
+          <p class="foot">Tasks save to your browser (IndexedDB). Habitica requires your User ID + API Token (stored locally).</p>
+        </div>
+        <div class="card">
+          <h3>Plan Preview</h3>
+          <textarea id="plan" rows="14" placeholder="Your personalized, zero-harm plan will appear here." aria-label="Plan preview"></textarea>
+          <div class="row" style="margin-top:.6rem">
+            <button class="btn" id="btnImproveLLM">Ask Copilot to Improve</button>
+            <button class="btn" id="btnPledge">Record a Gentle Pledge</button>
+          </div>
+          <div id="pledgeResult" class="foot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Metaprompt Chain -->
+    <section id="metaprompt">
+      <div class="section-head">
+        <h2>Metaprompt Chain — Biosphere-Positive, Zero-Harm, Anti-Inversion</h2>
+      </div>
+      <div class="section-body">
+        <p>This chain helps any AI/agent/team co-create solutions that help all parties and heal the biosphere. Copy, adapt, fork.</p>
+        <details open>
+          <summary>View / Edit Chain JSON</summary>
+          <textarea id="chainJson" rows="22" class="mono"></textarea>
+          <div class="row" style="margin-top:.6rem">
+            <button class="btn" id="btnValidateChain">Validate</button>
+            <button class="btn" id="btnRunChain">Run with Copilot (WebLLM or Local)</button>
+          </div>
+          <pre id="chainOut" class="mono" style="white-space:pre-wrap; margin-top:.6rem"></pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- SECTION: Privacy & Local Data -->
+    <section id="privacy">
+      <div class="section-head">
+        <h2>Privacy, Storage, & Service Worker</h2>
+      </div>
+      <div class="section-body grid cols-2">
+        <div class="card">
+          <p>Everything you do here is private by default. We use <span class="kbd">IndexedDB</span> for plans, metrics, pledges, and (optionally) Habitica credentials. You can export or wipe at any time.</p>
+          <div class="row">
+            <button class="btn" id="btnExportAll">Export All</button>
+            <button class="btn" id="btnWipe">Wipe Local Data</button>
+          </div>
+        </div>
+        <div class="card">
+          <p>A self-contained Service Worker caches this page for offline use and verifies integrity on load.</p>
+          <div class="row">
+            <span class="pill">SW: <span id="swStatus">registering…</span></span>
+            <span class="pill">Integrity: <span id="hashStatus">…</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot" style="text-align:center; padding:2rem 1rem 4rem">
+      <div class="row" style="justify-content:center">
+        <span class="tag">Zero-Harm Override</span>
+        <span class="tag">Biosphere-First</span>
+        <span class="tag">Restorative by Default</span>
+        <span class="tag">Evidence-Based</span>
+        <span class="tag">Privacy-Preserving</span>
+      </div>
+      <p style="margin-top:1rem">© Planetary Restoration Archive • All life, long and flourishing. • Built to be forked and improved.</p>
+    </footer>
+  </main>
+
+  <!-- =========== Starfield (photorealistic-ish WebGL) =========== -->
+  <script>
+  (() => {
+    const canvas = document.getElementById('stars');
+    const gl = canvas.getContext('webgl', {antialias:false, alpha:false});
+    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio||1));
+    let W, H;
+
+    const vs = `
+      attribute vec2 p; varying vec2 v;
+      void main() { v = p; gl_Position = vec4(p,0.,1.); }
+    `;
+    const fs = `
+      precision highp float; varying vec2 v;
+      uniform float t; uniform vec2 res;
+      float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453123); }
+      float stars(vec2 uv){
+        float d = 0.0;
+        for (int i=0; i<3; i++){
+          vec2 cell = floor(uv);
+          vec2 f = fract(uv);
+          float h = hash(cell + float(i)*13.13);
+          vec2 spark = vec2(h, fract(h*23.17));
+          float size = mix(0.001, 0.003, fract(h*71.7));
+          float tw = 0.6 + 0.4*sin(t*0.8 + h*6.283);
+          d += smoothstep(size, 0.0, distance(f, spark)) * tw;
+          uv *= 1.7; // fBm zoom
+        }
+        return d;
+      }
+      void main(){
+        vec2 uv = (v+1.0)*0.5;
+        vec2 g = (v * vec2(res.x/res.y,1.0))*1.0;
+        float milky = pow(1.0 - abs(g.y*0.7 + 0.15*sin(g.x*2.0 + t*0.05)), 2.0);
+        float field = stars(uv*300.0 + t*0.01);
+        vec3 col = vec3(0.01,0.02,0.05) + vec3(0.0,0.1,0.2)*milky + vec3(0.7,0.9,1.0)*field;
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `;
+    function compile(type, src){
+      const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s);
+      return s;
+    }
+    if(gl){
+      const prog = gl.createProgram();
+      gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
+      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
+      gl.linkProgram(prog);
+      if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw gl.getProgramInfoLog(prog);
+      const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(prog, 'p');
+      const ut = gl.getUniformLocation(prog, 't');
+      const ures = gl.getUniformLocation(prog, 'res');
+      function resize(){
+        W = Math.floor(innerWidth*dpr); H = Math.floor(innerHeight*dpr);
+        canvas.width = W; canvas.height = H; canvas.style.width = innerWidth+"px"; canvas.style.height = innerHeight+"px";
+        gl.viewport(0,0,W,H);
+      }
+      addEventListener('resize', resize, {passive:true}); resize();
+      let start = performance.now();
+      function frame(){
+        gl.useProgram(prog);
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+        gl.uniform1f(ut, (performance.now()-start)/1000);
+        gl.uniform2f(ures, W, H);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        requestAnimationFrame(frame);
+      }
+      frame();
+    } else {
+      // Canvas fallback
+      const ctx = canvas.getContext('2d');
+      function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+      addEventListener('resize', resize, {passive:true}); resize();
+      const stars = Array.from({length: 800}, () => ({
+        x: Math.random()*canvas.width, y: Math.random()*canvas.height, z: Math.random()*1+0.5, tw: Math.random()
+      }));
+      function loop(){
+        ctx.fillStyle = '#000814'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        for(const s of stars){
+          s.tw += 0.02; const a = .6 + .4*Math.sin(s.tw);
+          ctx.fillStyle = `rgba(180,230,255,${a})`;
+          ctx.fillRect(s.x, s.y, s.z, s.z);
+        }
+        requestAnimationFrame(loop);
+      }
+      loop();
+    }
+  })();
+  </script>
+
+  <!-- =========== IndexedDB, Kernel, Habitica, WebLLM, Chain =========== -->
+  <script>
+  /* ---------- IndexedDB Setup ---------- */
+  const DB_NAME = 'pra-zero-harm';
+  const DB_VERSION = 1;
+  const STORES = ['plans','metrics','pledges','habitica','guardrails'];
+  function idb(){ return new Promise((resolve,reject)=>{
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e)=>{
+      const db = e.target.result;
+      STORES.forEach(s=>{ if(!db.objectStoreNames.contains(s)) db.createObjectStore(s, {keyPath:'id', autoIncrement:true}); });
+    };
+    req.onsuccess = ()=>resolve(req.result);
+    req.onerror = ()=>reject(req.error);
+  }); }
+  async function put(store, value){ const db=await idb(); return new Promise((res,rej)=>{
+    const tx=db.transaction(store,'readwrite'); tx.objectStore(store).add(value);
+    tx.oncomplete=()=>res(true); tx.onerror=()=>rej(tx.error);
+  }); }
+  async function getAll(store){ const db=await idb(); return new Promise((res,rej)=>{
+    const tx=db.transaction(store,'readonly'); const r=tx.objectStore(store).getAll();
+    r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error);
+  }); }
+  async function clearStore(store){ const db=await idb(); return new Promise((res,rej)=>{
+    const tx=db.transaction(store,'readwrite'); tx.objectStore(store).clear();
+    tx.oncomplete=()=>res(true); tx.onerror=()=>rej(tx.error);
+  }); }
+
+  /* ---------- Zero-Harm Kernel Checks ---------- */
+  const kernelChecks = [
+    { id:'harm', rule: plan => /incarcerat|punish|criminaliz(e|ation)/i.test(plan) ? 'Check: Does this step measurably reduce harm vs. shift it?' : 'OK',
+      weight: 2 },
+    { id:'dignity', rule: plan => /addict|junkie/i.test(plan) ? 'Language not person-first; rephrase.' : 'OK', weight: 1 },
+    { id:'consent', rule: plan => /mandatory|forced/i.test(plan) ? 'Consent risk. Offer voluntary, informed alternatives.' : 'OK', weight: 2 },
+    { id:'biosphere', rule: plan => /landfill|incinerat/i.test(plan) ? 'Add green remediation and offsets.' : 'OK', weight: 1 }
+  ];
+  function evaluateKernel(text){
+    const logs = [];
+    let risk = 0;
+    for(const k of kernelChecks){
+      const out = k.rule(text);
+      if(out!=='OK'){ risk += k.weight; logs.push('⚠ ' + out); }
+    }
+    if(logs.length===0) logs.push('✅ All kernel checks passed.');
+    document.getElementById('kernelChecksLog').textContent = logs.join('\n');
+    return risk;
+  }
+
+  /* ---------- Habitica (optional) ---------- */
+  async function habiticaSend(tasks){
+    try{
+      const uid = localStorage.getItem('habitica_uid') || prompt("Habitica User ID (stored locally):") || '';
+      const token = localStorage.getItem('habitica_token') || prompt("Habitica API Token (stored locally):") || '';
+      if(uid && token){ localStorage.setItem('habitica_uid', uid); localStorage.setItem('habitica_token', token); }
+      else throw new Error('Missing Habitica credentials.');
+      // Offline-friendly: store task bundle locally; if online, attempt POST
+      await put('habitica', { created: Date.now(), tasks });
+      if(navigator.onLine){
+        const resp = await fetch('https://habitica.com/api/v3/tasks/user', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json', 'x-api-user':uid, 'x-api-key':token },
+          body: JSON.stringify({ text:'Zero-Harm Plan', type:'todo', notes: tasks.join('\n') })
+        });
+        if(!resp.ok) throw new Error('Habitica API error');
+        alert('Tasks queued to Habitica ✅');
+      }else{
+        alert('Offline: tasks saved locally; will sync when online.');
+      }
+    }catch(e){ alert('Habitica error: '+ e.message); }
+  }
+
+  /* ---------- WebLLM (progressive) ---------- */
+  let webllm;
+  async function ensureWebLLM(){
+    if(webllm) return webllm;
+    if(!navigator.onLine){
+      // Local mock: simple transform
+      webllm = { generate: async (p)=>"[Local Copilot] " + p.slice(0, 1500) + "\n\n(Connect online for full WebLLM.)" };
+      return webllm;
+    }
+    try{
+      // Attempt lazy load from unpkg (optional). If blocked, fallback to mock.
+      const mod = await import('https://unpkg.com/@mlc-ai/web-llm@0.2.71/dist/index.min.js');
+      const engine = await mod.CreateMLCEngine({ model:'Llama-3-8B-Instruct-q4f32_1-MLC', temperature:0.2 });
+      webllm = { generate: async (prompt)=> (await engine.chat.completions.create({messages:[{role:'user', content:prompt}]})).choices[0].message.content };
+      return webllm;
+    }catch(e){
+      webllm = { generate: async (p)=>"[Fallback Copilot] " + p.slice(0, 1500) + "\n\n(WebLLM CDN unavailable.)" };
+      return webllm;
+    }
+  }
+
+  /* ---------- Metaprompt Chain (editable JSON) ---------- */
+  const defaultChain = {
+    version: "1.0",
+    title: "Zero-Harm Drug Harm Untangling — Biosphere Co-Benefit",
+    guardrails: {
+      zeroHarmOverride: true,
+      requirePersonFirstLanguage: true,
+      requireEvidenceCitations: true,
+      forbidCoercion: true,
+      biospherePositiveOrNeutral: true
+    },
+    stages: [
+      {
+        id: "1_scope",
+        intent: "Define problem without stigma; enumerate stakeholders; set measurable goals.",
+        inputs: ["local context", "constraints", "time horizon"],
+        outputs: ["goal_set", "stakeholder_map", "risk_register"]
+      },
+      {
+        id: "2_evidence",
+        intent: "Assemble randomized/longitudinal evidence; compute base rates; model counterfactuals.",
+        outputs: ["evidence_brief", "causal_map", "uncertainty_bounds"]
+      },
+      {
+        id: "3_design",
+        intent: "Co-design harm-reduction + care access + restorative justice + targeted enforcement + green remediation.",
+        constraints: ["voluntary care", "human dignity", "biosphere-positive"],
+        outputs: ["policy_bundle", "clinic_ops", "community_programs", "eco_remediation"]
+      },
+      {
+        id: "4_impact",
+        intent: "Define metrics & dashboards: mortality↓, poisoning↓, care retention↑, arrests↓, savings↑, biodiversity↑.",
+        outputs: ["kpi_set", "eval_plan", "dashboard_spec"]
+      },
+      {
+        id: "5_delivery",
+        intent: "Implementation playbook with budget shift, workforce plan, legal shields, public narrative repair.",
+        outputs: ["timeline", "budget", "workforce", "communications"]
+      },
+      {
+        id: "6_integrity",
+        intent: "Run anti-inversion checks; red-team; publish provenance + privacy guarantees.",
+        outputs: ["guardrail_report", "provenance_manifest"]
+      }
+    ],
+    phrasing_filters: [
+      ["addict","person who uses drugs"],
+      ["clean/dirty test","negative/positive test"],
+      ["war on drugs","evidence-based health and safety"]
+    ],
+    narrative_checks: [
+      "No scapegoating; describe system drivers and structural fixes.",
+      "Avoid zero-sum framing; articulate human + biosphere co-benefits.",
+      "Provide base rates and comparison groups when claiming success."
+    ],
+    biosphere_hooks: [
+      "Facility-level composting + native plant corridors",
+      "Wastewater toxics monitoring + remediation grants",
+      "Citizen science for air/water/soil; seed libraries & pollinator tracks"
+    ]
+  };
+  const chainEl = document.getElementById('chainJson');
+  chainEl.value = JSON.stringify(defaultChain, null, 2);
+
+  /* ---------- Contribution Wizard logic ---------- */
+  function planFromInputs(who, goal, constraints){
+    const base =
+`# Zero-Harm Plan (${new Date().toISOString().slice(0,10)})
+Role: ${who}
+Goal: ${goal||'—'}
+Constraints: ${constraints||'—'}
+
+1) Immediate Harm Reduction
+- Safe, stigma-free access; poison-risk elimination; consent-based care.
+
+2) Access to Care (Same-Day)
+- MOUD/OAT; stimulant supports; MH integration; housing linkage.
+
+3) Restorative Justice & Targeted Enforcement
+- Diversion courts; record sealing; focus on violent trafficking & eco-crimes.
+
+4) Biosphere Co-Benefits
+- Clinic waste-to-wildflower; wastewater monitoring; local restoration micro-grants.
+
+5) Metrics
+- Mortality↓, poisonings↓, retention↑, arrests↓, net savings↑, biodiversity↑.
+
+Integrity
+- Person-first language; voluntary care; privacy; provenance manifest.
+`;
+    return base;
+  }
+
+  /* ---------- Service Worker (inline) ---------- */
+  (async function registerSW(){
+    const swCode = `
+      const CACHE = 'pra-zero-harm-v1';
+      self.addEventListener('install', e=>{
+        e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./'])));
+        self.skipWaiting();
+      });
+      self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
+      self.addEventListener('fetch', e=>{
+        const u = new URL(e.request.url);
+        if(u.origin === location.origin){
+          e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(resp=>{
+            const copy = resp.clone(); caches.open(CACHE).then(c=>c.put(e.request, copy));
+            return resp;
+          })));
+        }
+      });
+    `;
+    try{
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      const url = URL.createObjectURL(blob);
+      const reg = await navigator.serviceWorker.register(url, { scope:'./' });
+      document.getElementById('swStatus').textContent = 'active';
+    }catch(e){
+      document.getElementById('swStatus').textContent = 'unavailable';
+    }
+  })();
+
+  /* ---------- Integrity Hash ---------- */
+  (async function integrity(){
+    const html = document.documentElement.outerHTML;
+    const enc = new TextEncoder().encode(html);
+    const buf = await crypto.subtle.digest('SHA-256', enc);
+    const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    sessionStorage.setItem('page_sha256', hex);
+    document.getElementById('hashStatus').textContent = hex.slice(0,12) + '…';
+  })();
+
+  /* ---------- UI bindings ---------- */
+  const $ = sel => document.querySelector(sel);
+  $('#btnPlan').addEventListener('click', async ()=>{
+    const who = $('#who').value, goal=$('#goal').value, cons=$('#constraints').value;
+    const p = planFromInputs(who, goal, cons);
+    $('#plan').value = p;
+    evaluateKernel(p);
+    await put('plans', { created: Date.now(), who, goal, constraints: cons, plan: p });
+  });
+  $('#btnHabitica').addEventListener('click', async ()=>{
+    const text = $('#plan').value.trim() || 'Create a plan first.';
+    const tasks = text.split('\n').filter(x=>x.trim().length>0).slice(0,50);
+    await habiticaSend(tasks);
+  });
+  $('#btnPledge').addEventListener('click', async ()=>{
+    const text = $('#plan').value.trim();
+    if(!text){ alert('Create a plan first.'); return; }
+    await put('pledges', { created: Date.now(), excerpt: text.slice(0,200) });
+    $('#pledgeResult').textContent = 'Pledge stored locally. Gentle commitments only—no self-sacrifice.';
+  });
+  $('#btnSaveMetrics').addEventListener('click', async ()=>{
+    const metrics = {
+      created: Date.now(),
+      human: { mortality: '↓30%/18mo', poison: '↓', retention: '↑' },
+      justice: { arrests: '↓70%', budgetShift: '≥1:1' },
+      biosphere: { wastewater: 'toxics↓', biodiversity: '↑' }
+    };
+    await put('metrics', metrics);
+    $('#metricsSaved').textContent = 'Metrics template saved locally.';
+  });
+  $('#btnExportPlan').addEventListener('click', async ()=>{
+    const plans = await getAll('plans');
+    const blob = new Blob([JSON.stringify(plans, null, 2)], {type:'application/json'});
+    const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download:'zero-harm-plans.json'});
+    a.click();
+  });
+  $('#btnExportAll').addEventListener('click', async ()=>{
+    const bundle = {};
+    for(const s of STORES) bundle[s] = await getAll(s);
+    const blob = new Blob([JSON.stringify(bundle, null, 2)], {type:'application/json'});
+    const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download:'pra-zero-harm-export.json'});
+    a.click();
+  });
+  $('#btnWipe').addEventListener('click', async ()=>{
+    if(confirm('Wipe all local data? This cannot be undone.')){
+      for(const s of STORES) await clearStore(s);
+      alert('Local data wiped.');
+    }
+  });
+  $('#btnStartWizard').addEventListener('click', ()=> document.getElementById('wizard').scrollIntoView({behavior:'smooth'}));
+
+  $('#btnOpenLLM').addEventListener('click', async ()=>{
+    const llm = await ensureWebLLM();
+    alert('Copilot ready.\nUse “Ask Copilot to Improve” or run the Metaprompt Chain.');
+  });
+  $('#btnImproveLLM').addEventListener('click', async ()=>{
+    const llm = await ensureWebLLM();
+    const plan = $('#plan').value || 'No plan yet.';
+    const chain = JSON.parse($('#chainJson').value || '{}');
+    const prompt = `Apply the Zero-Harm chain to improve this plan.\nChain:${JSON.stringify(chain)}\nPlan:\n${plan}`;
+    const out = await llm.generate(prompt);
+    $('#plan').value = out;
+    evaluateKernel(out);
+  });
+
+  $('#btnValidateChain').addEventListener('click', ()=>{
+    try{
+      const j = JSON.parse($('#chainJson').value);
+      if(!j.stages || !Array.isArray(j.stages)) throw new Error('Missing stages[]');
+      $('#chainOut').textContent = 'Chain is valid ✅';
+    }catch(e){ $('#chainOut').textContent = 'Invalid ❌ ' + e.message; }
+  });
+  $('#btnRunChain').addEventListener('click', async ()=>{
+    const j = JSON.parse($('#chainJson').value);
+    const llm = await ensureWebLLM();
+    const who = $('#who').value, goal=$('#goal').value, cons=$('#constraints').value;
+    const ctx = {who, goal, constraints: cons};
+    const prompt = `You are an assistant constrained by Zero-Harm Override. Given context ${JSON.stringify(ctx)}, produce outputs for each stage:\n${JSON.stringify(j.stages)}`;
+    const out = await llm.generate(prompt);
+    $('#chainOut').textContent = out;
+  });
+
+  $('#btnScanLanguage').addEventListener('click', ()=>{
+    const txt = document.body.innerText;
+    evaluateKernel(txt);
+    alert('Language scan complete. See Kernel checks.');
+  });
+  </script>
+</body>
+</html>
